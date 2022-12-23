@@ -21,7 +21,7 @@ export class ExerciseListComponent implements OnInit, AfterViewInit {
   onResize() {
     if (this.div.nativeElement.scrollWidth > this.div.nativeElement.clientWidth) {
       this.isHiddenClass = "";
-      this.hasPaddingClass = " pr-[16.666667%]";
+      this.hasPaddingClass = "pr-[16.666667%]";
     }
     else {
       this.isHiddenClass = "hidden";

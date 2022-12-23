@@ -10,6 +10,7 @@ import { YouComponent } from './pages/you/you.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ExerciseListComponent } from './components/exercise-list/exercise-list.component';
 import { InfoCardComponent } from './components/info-card/info-card.component';
+import { ExerciseCardComponent } from './components/exercise-card/exercise-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
     YouComponent,
     SettingsComponent,
     ExerciseListComponent,
-    InfoCardComponent
+    InfoCardComponent,
+    ExerciseCardComponent
   ],
   imports: [
     BrowserModule,
