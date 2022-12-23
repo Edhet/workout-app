@@ -9,6 +9,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { YouComponent } from './pages/you/you.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ExerciseListComponent } from './components/exercise-list/exercise-list.component';
+import { InfoCardComponent } from './components/info-card/info-card.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ExerciseListComponent } from './components/exercise-list/exercise-list.
     NavbarComponent,
     YouComponent,
     SettingsComponent,
-    ExerciseListComponent
+    ExerciseListComponent,
+    InfoCardComponent
   ],
   imports: [
     BrowserModule,
