@@ -6,19 +6,19 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/
   styleUrls: ['./exercise-list.component.css']
 })
 export class ExerciseListComponent implements OnInit, AfterViewInit {
-  @ViewChild('listContainer', {static: true}) div!:ElementRef;
+  @ViewChild('listContainer') div!:ElementRef;
   isHiddenClass: string = "";
   hasPaddingClass: string = "";
 
   ngOnInit() {
-    this.onResize();
+    setTimeout(() => this.onWindowResize(), 100);
   }
 
   ngAfterViewInit() {
-    this.onResize();
+    setTimeout(() => this.onWindowResize(), 100);
   }
 
-  onResize() {
+  onWindowResize() {
     if (this.div.nativeElement.scrollWidth > this.div.nativeElement.clientWidth) {
       this.isHiddenClass = "";
       this.hasPaddingClass = "pr-[16.666667%]";
