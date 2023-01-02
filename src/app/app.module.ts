@@ -12,6 +12,7 @@ import { ExerciseListComponent } from './components/exercise-list/exercise-list.
 import { InfoCardComponent } from './components/info-card/info-card.component';
 import { ExerciseCardComponent } from './components/exercise-card/exercise-card.component';
 import { SelectionPromptComponent } from './components/selection-prompt/selection-prompt.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SelectionPromptComponent } from './components/selection-prompt/selectio
     ExerciseListComponent,
     InfoCardComponent,
     ExerciseCardComponent,
-    SelectionPromptComponent
+    SelectionPromptComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
