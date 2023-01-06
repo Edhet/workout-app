@@ -1,7 +1,7 @@
 <div class="flex">
   <div class="mr-auto">
     <p class="font-bol"> {{userInfo.displayName}} </p>
-    <p class="font-light"> {{userInfo.email}} </p>
+    <p class="font-light text-sm"> {{userInfo.email}} </p>
     <button (click)="logoutBtn()" class="bg-black p-2 rounded-lg mt-2 bottom-2 hover:bg-gray-800 transition-colors text-white">Log Out</button>
   </div>
   <img [src]="userInfo.photoURL" class="rounded-full">

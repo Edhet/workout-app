@@ -22,8 +22,9 @@ export class AuthService {
     return await signInWithPopup(this.auth, new GoogleAuthProvider());
   }
 
+  //TODO: MAKE THIS ASYNC
   isLoggedIn(): boolean {
-    return !!(this.auth.currentUser);
+    return !!this.auth.currentUser;
   }
 
   public getUserInfo(): User {
