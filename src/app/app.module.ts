@@ -13,6 +13,22 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
 import { ExerciseCardComponent } from './components/exercise-card/exercise-card.component';
 import { SelectionPromptComponent } from './components/selection-prompt/selection-prompt.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AccountInfoComponent } from './components/account-info/account-info.component';
+
+import { provideFirebaseApp, initializeApp } from "@angular/fire/app";
+import { getFirestore, provideFirestore } from "@angular/fire/firestore";
+import { getStorage, provideStorage } from "@angular/fire/storage";
+import { getAuth, provideAuth } from "@angular/fire/auth";
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCOwNyLOf0djhiSgQA-b6PJbgHisQfYG_s",
+  authDomain: "workout-app-edhet.firebaseapp.com",
+  projectId: "workout-app-edhet",
+  storageBucket: "workout-app-edhet.appspot.com",
+  messagingSenderId: "1076716434809",
+  appId: "1:1076716434809:web:7ceb1ba405a610e45f2ba8",
+  measurementId: "G-Q2G1LQH2HH"
+};
 
 @NgModule({
   declarations: [
@@ -26,11 +42,16 @@ import { FooterComponent } from './components/footer/footer.component';
     InfoCardComponent,
     ExerciseCardComponent,
     SelectionPromptComponent,
-    FooterComponent
+    FooterComponent,
+    AccountInfoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    provideAuth(() => getAuth())
   ],
   providers: [],
   bootstrap: [AppComponent]

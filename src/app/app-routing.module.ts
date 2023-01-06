@@ -5,14 +5,15 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { YouComponent } from './pages/you/you.component';
 import { SettingsComponent } from "./pages/settings/settings.component";
+import { LoginGuard } from "./services/login.guard";
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  {path: 'you', component: YouComponent},
-  {path: 'settings', component: SettingsComponent},
-  {path: '**', component: LoginComponent},
+  {path: 'home', component: HomeComponent, canActivate: [LoginGuard]},
+  {path: 'you', component: YouComponent, canActivate: [LoginGuard]},
+  {path: 'settings', component: SettingsComponent, canActivate: [LoginGuard]},
+  {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
