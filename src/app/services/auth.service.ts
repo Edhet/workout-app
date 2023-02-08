@@ -1,38 +1,41 @@
-import { Injectable } from '@angular/core';
-
-import User from "../interfaces/user";
-import {Auth, signOut, signInWithPopup, GoogleAuthProvider, user} from "@angular/fire/auth";
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {Auth, signOut, signInWithPopup, GoogleAuthProvider, user, onAuthStateChanged, User} from "@angular/fire/auth";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable<any>;
+  private user = new BehaviorSubject<User | null | boolean>(false);
 
   constructor(private auth: Auth) {
-    this.user$ = user(this.auth);
+    onAuthStateChanged(this.auth, user => this.user.next(user));
   }
 
-  async logout() {
+  public getUserObservable() {
+    return this.user.asObservable();
+  }
+
+  public async logout() {
     return await signOut(this.auth);
   }
 
-  async login() {
+  public async login() {
     return await signInWithPopup(this.auth, new GoogleAuthProvider());
   }
 
-  //TODO: MAKE THIS ASYNC
-  isLoggedIn(): boolean {
-    return !!this.auth.currentUser;
+  public async isLoggedIn(): Promise<boolean> {
+    let t = 0;
+    while (t <= 200) {
+      if (typeof this.user.value != "boolean")
+        return !!this.user.value;
+      await new Promise(resolve => setTimeout(resolve, 10));
+      t++;
+    }
+    return false;
   }
 
-  public getUserInfo(): User {
-    return {
-      uid: this.auth.currentUser?.uid,
-      email: this.auth.currentUser?.email,
-      photoURL: this.auth.currentUser?.photoURL,
-      displayName: this.auth.currentUser?.displayName,
-    }
+  public getCurrentUser() {
+    return this.auth.currentUser;
   }
 }

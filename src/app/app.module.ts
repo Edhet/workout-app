@@ -45,7 +45,7 @@ export const firebaseConfig = {
     SelectionPromptComponent,
     FooterComponent,
     AccountInfoComponent,
-    GoogleLoginComponent
+    GoogleLoginComponent,
   ],
   imports: [
     BrowserModule,

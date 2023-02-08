@@ -11,6 +11,9 @@ export class GoogleLoginComponent {
   constructor(private auth: AuthService, private router: Router) { }
 
   async loginBtn() {
-    await this.auth.login().then(() => {this.router.navigate(["home"])});
+    if (await this.auth.isLoggedIn())
+      await this.router.navigate(["home"]);
+    else
+      await this.auth.login().then(() => {this.router.navigate(["home"])});
   }
 }

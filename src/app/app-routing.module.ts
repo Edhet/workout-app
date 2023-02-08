@@ -7,13 +7,12 @@ import { YouComponent } from './pages/you/you.component';
 import { SettingsComponent } from "./pages/settings/settings.component";
 import { LoginGuard } from "./services/login.guard";
 
-
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent, canActivate: [LoginGuard]},
   {path: 'you', component: YouComponent, canActivate: [LoginGuard]},
   {path: 'settings', component: SettingsComponent, canActivate: [LoginGuard]},
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
 ];
 
 @NgModule({

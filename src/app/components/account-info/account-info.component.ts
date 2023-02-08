@@ -1,21 +1,24 @@
-import {Component} from '@angular/core';
-
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
-import User from "../../interfaces/user";
+import UserDisplayInfo from "../../interfaces/userDisplayInfo";
 
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.component.html',
   styleUrls: ['./account-info.component.css']
 })
-export class AccountInfoComponent{
-  userInfo: User = {uid: null, email: null, displayName: null, photoURL: null};
+export class AccountInfoComponent implements OnInit {
+  userInfo: UserDisplayInfo = {uid: null, email: null, displayName: null, photoURL: null};
 
-  constructor(private auth: AuthService, private router: Router) {
-    this.auth.user$.subscribe(user => {
-      this.userInfo = this.auth.getUserInfo();
-    });
+  constructor(private auth: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    let currentUser = this.auth.getCurrentUser();
+    this.userInfo.uid = currentUser!.uid;
+    this.userInfo.email = currentUser!.email;
+    this.userInfo.displayName = currentUser?.displayName;
+    setTimeout(() => this.userInfo.photoURL = currentUser?.photoURL, 20);
   }
 
   async logoutBtn() {
