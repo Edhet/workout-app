@@ -1,5 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import ExerciseInfo from "../../interfaces/exerciseInfo";
+import {ExercisesService} from "../../services/exercises.service";
+import CategoryExercisesList from "../../interfaces/categoryExercisesList";
 
 @Component({
   selector: 'app-exercise-list',
@@ -9,12 +11,15 @@ import ExerciseInfo from "../../interfaces/exerciseInfo";
 export class ExerciseListComponent implements OnInit {
   @ViewChild('listContainer') div!:ElementRef;
 
-  listItems?: Array<ExerciseInfo>;
-
   isHiddenClass: string = "";
   hasPaddingClass: string = "";
 
-  ngOnInit() {
+  public categoryAndExercises: CategoryExercisesList = {categoryName: "", exercises: []};
+
+  constructor(private exercisesService: ExercisesService) { }
+
+  async ngOnInit() {
+    this.categoryAndExercises = await this.exercisesService.populateComponent();
     setTimeout(() => this.onWindowResize(), 50);
   }
 
