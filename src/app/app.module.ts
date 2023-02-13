@@ -20,6 +20,7 @@ import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { getStorage, provideStorage } from "@angular/fire/storage";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { GoogleLoginComponent } from './components/google-login/google-login.component';
+import { SchedulesComponent } from './components/schedules/schedules.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCOwNyLOf0djhiSgQA-b6PJbgHisQfYG_s",
@@ -46,6 +47,7 @@ export const firebaseConfig = {
     FooterComponent,
     AccountInfoComponent,
     GoogleLoginComponent,
+    SchedulesComponent,
   ],
   imports: [
     BrowserModule,
