@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {addDoc, collection, doc, Firestore, getDoc, setDoc, updateDoc} from "@angular/fire/firestore";
+import {addDoc, collection, deleteDoc, doc, Firestore, getDoc, setDoc, updateDoc} from "@angular/fire/firestore";
 import {AuthService} from "./auth.service";
 import Schedule from "../interfaces/schedule";
 import UserInfo from "../interfaces/userInfo";
@@ -18,15 +18,15 @@ export class SchedulesService {
     return doc(this.firestore, this.userInfoCollectionName, uid);
   }
 
-  private getUserInfoCollection() {
+  private getUserInfoCol() {
     return collection(this.firestore, this.userInfoCollectionName);
   }
 
-  private getDocument(id: string) {
+  private getScheduleDoc(id: string) {
     return doc(this.firestore, this.schedulesCollectionName, id);
   }
 
-  private getCollection() {
+  private getScheduleCol() {
     return collection(this.firestore, this.schedulesCollectionName);
   }
 
@@ -34,7 +34,13 @@ export class SchedulesService {
     const userUID = this.authService.getCurrentUser()?.uid;
     if (!userUID)
       return;
-    await setDoc(doc(this.getUserInfoCollection(), userUID), {schedulesID: []});
+    await setDoc(doc(this.getUserInfoCol(), userUID), {schedulesID: []});
+  }
+
+  public async updateUserInfo(newUserInfo: UserInfo, userUID: string) {
+    if (!newUserInfo)
+      return;
+    return await updateDoc(this.getUserInfoDoc(userUID), {schedulesID: newUserInfo.schedulesID});
   }
 
   private async getUserInfo(): Promise<UserInfo> {
@@ -57,22 +63,41 @@ export class SchedulesService {
   }
 
   public async createNewSchedule(schedule: Schedule) {
-    if (!schedule)
+    const userUID = this.authService.getCurrentUser()?.uid;
+    if (!schedule || !userUID)
       return;
-    return await addDoc(this.getCollection(), schedule);
+    const newScheduleRef = await addDoc(this.getScheduleCol(), schedule);
+    let userInfo = await this.getUserInfo();
+    userInfo.schedulesID.push(newScheduleRef.id);
+    await this.updateUserInfo(userInfo, userUID);
+    return newScheduleRef;
+  }
+
+  public async deleteSchedule(scheduleId: string) {
+    const userUID = this.authService.getCurrentUser()?.uid;
+    if (!scheduleId || !userUID)
+      return
+    let userInfo = await this.getUserInfo();
+    userInfo.schedulesID.forEach((id, index) => {
+      if (id == scheduleId)
+        userInfo.schedulesID.splice(index, 1);
+    })
+    await this.updateUserInfo(userInfo, userUID);
+    return deleteDoc(this.getScheduleDoc(scheduleId));
   }
 
   public async updateSchedule(newSchedule: Schedule, scheduleId: string) {
     if (!newSchedule)
       return;
-    return await updateDoc(this.getDocument(scheduleId), {days: newSchedule.days, exercises: newSchedule.exercises, name: newSchedule.name});
+    return await updateDoc(this.getScheduleDoc(scheduleId), {days: newSchedule.days, exercises: newSchedule.exercises, name: newSchedule.name});
   }
 
   public async getSchedule(id: string): Promise<Schedule> {
-    const document = await getDoc(this.getDocument(id));
+    const document = await getDoc(this.getScheduleDoc(id));
     if (!document.exists())
       return Promise.reject();
     let schedule: Schedule = document.data() as Schedule;
+    schedule.firestoreID = document.id;
     return Promise.resolve(schedule);
   }
 }

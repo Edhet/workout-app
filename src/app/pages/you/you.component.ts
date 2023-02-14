@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-you',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./you.component.css']
 })
 export class YouComponent {
-
+  public loadingSchedules = true;
 }

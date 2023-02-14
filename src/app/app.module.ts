@@ -21,6 +21,7 @@ import { getStorage, provideStorage } from "@angular/fire/storage";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { GoogleLoginComponent } from './components/google-login/google-login.component';
 import { SchedulesComponent } from './components/schedules/schedules.component';
+import { FormsModule } from "@angular/forms";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCOwNyLOf0djhiSgQA-b6PJbgHisQfYG_s",
@@ -49,14 +50,15 @@ export const firebaseConfig = {
     GoogleLoginComponent,
     SchedulesComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage()),
-    provideAuth(() => getAuth())
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        provideFirebaseApp(() => initializeApp(firebaseConfig)),
+        provideFirestore(() => getFirestore()),
+        provideStorage(() => getStorage()),
+        provideAuth(() => getAuth()),
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
