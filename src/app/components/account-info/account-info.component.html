@@ -2,7 +2,8 @@
   <div class="mr-auto">
     <p class="font-bold"> {{userInfo.displayName}} </p>
     <p class="font-light text-sm"> {{userInfo.email}} </p>
-    <button (click)="logoutBtn()" class="bg-black p-2 rounded-lg mt-2 bottom-2 hover:bg-gray-800 transition-colors text-white">Log Out</button>
+    <button class="bg-black p-2 rounded-lg mt-2 bottom-2 hover:bg-gray-800 transition-colors text-white" (click)="showLogOutConfirmation = true">Log Out</button>
   </div>
   <img [src]="userInfo.photoURL" class="rounded-full">
 </div>
+<app-confirmation-prompt *ngIf="showLogOutConfirmation" (answer)="logoutBtn($event)" [message]="confirmationMessage"></app-confirmation-prompt>

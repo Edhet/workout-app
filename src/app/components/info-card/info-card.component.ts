@@ -10,7 +10,7 @@ export class InfoCardComponent implements OnInit {
   userHasSchedules: boolean = false;
   isLoading = true;
 
-  constructor(private schedulesService: SchedulesService) {}
+  constructor(private schedulesService: SchedulesService) { }
 
   async ngOnInit() {
     const schedules = await this.schedulesService.getUserInfo()

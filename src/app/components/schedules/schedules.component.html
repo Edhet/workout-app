@@ -1,15 +1,18 @@
 <div *ngIf="loadingSchedules" class="flex fixed h-full w-full place-content-center bg-opacity-0 top-0 left-0">
   <div class="m-auto bg-yellow-500 rounded-full animate-ping w-16 h-16"></div>
 </div>
-
 <div *ngIf="!(loadingSchedules)">
   <div class="flex">
     <h1 class="text-4xl font-bold mr-auto">Schedules</h1>
-    <button class="bg-black p-2 rounded-lg bottom-2 hover:bg-gray-800 transition-colors" (click)="openCreationPrompt()">
+    <button class="bg-black p-2 rounded-lg bottom-2 hover:bg-gray-800 transition-colors" (click)="showCreationPrompt = true">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg fill-white" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
       </svg>
     </button>
+  </div>
+
+  <div *ngIf="!(userSchedules.length > 0)">
+    <p class="text-center font-light my-6">You can add schedules clicking on the button with an plus sign</p>
   </div>
   <div *ngIf="userSchedules.length > 0">
     <div class="text-white my-5 relative" *ngFor="let schedule of userSchedules">
@@ -29,7 +32,7 @@
           <div class="px-1.5 py-2 rounded-full font-mono bg-black text-white {{(schedule.days.includes('fri') ? 'outline outline-2' : '')}}">FRI</div>
           <div class="px-1.5 py-2 rounded-full font-mono bg-black text-white {{(schedule.days.includes('sat') ? 'outline outline-2' : '')}}">SAT</div>
         </div>
-        <button class="md:text-slate-200 hover:text-white transition-colors absolute p-2 top-2 right-3" (click)="deleteScheduleBtn(schedule.firestoreID!)">
+        <button class="md:text-slate-200 hover:text-white transition-colors absolute p-2 top-2 right-3" (click)="deleteSchedulePrompt(schedule.firestoreID!)">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
           </svg>
@@ -41,12 +44,10 @@
         </button>
       </div>
 
-      <div class="p-2 bg-black rounded-b-lg">
-
+      <div class="p-2 rounded-b-lg border-x-2 border-b-2 text-black">
         <div *ngIf="!(schedule.exercises.length > 0)">
           <p class="text-center font-light">Go to the exercises pages to add exercises to this schedule</p>
         </div>
-
         <div *ngIf="schedule.exercises.length > 0">
           <ul>
             <li class="font-bold">Exercises:</li>
@@ -56,43 +57,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!(userSchedules.length > 0)">
-    <p class="text-center font-light my-6">You can add schedules clicking on the button with an plus sign</p>
-  </div>
 </div>
 
-<div *ngIf="showCreationPrompt" class="flex fixed h-full w-full place-content-center bg-opacity-0 top-0 left-0 z-10" (click)="closeCreationPrompt()">
-  <div class="m-auto h-fit w-[84%] md:w-[70%] lg:w-[50%] 2xl:w-[33.3333333%] rounded-lg z-50 backdrop-blur-sm bg-black/90 text-white border border-neutral-500" (click)="$event.stopPropagation()">
-    <div class="p-4">
-      <p class="font-extrabold">New Schedule:</p>
-      <input class="mt-4 p-2 rounded-lg w-full bg-transparent placeholder:text-slate-300 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="text" placeholder="Schedule name" [(ngModel)]="newScheduleName">
-      <div class="flex gap-2 mt-4 mx-auto w-fit flex-wrap justify-center">
-        <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{(daysOfWeek.includes('sun') ? 'outline outline-1' : '')}}" (click)="addDayBtn('sun')">SUN</button>
-        <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{(daysOfWeek.includes('mon') ? 'outline outline-1' : '')}}" (click)="addDayBtn('mon')">MON</button>
-        <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{(daysOfWeek.includes('tue') ? 'outline outline-1' : '')}}" (click)="addDayBtn('tue')">TUE</button>
-        <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{(daysOfWeek.includes('wed') ? 'outline outline-1' : '')}}" (click)="addDayBtn('wed')">WED</button>
-        <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{(daysOfWeek.includes('thu') ? 'outline outline-1' : '')}}" (click)="addDayBtn('thu')">THU</button>
-        <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{(daysOfWeek.includes('fri') ? 'outline outline-1' : '')}}" (click)="addDayBtn('fri')">FRI</button>
-        <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{(daysOfWeek.includes('sat') ? 'outline outline-1' : '')}}" (click)="addDayBtn('sat')">SAT</button>
-      </div>
-    </div>
-
-    <div class="mt-6 grid grid-cols-2 divide-x divide-neutral-500 border-t border-t-neutral-500">
-      <button class="text-slate-300 hover:text-white transition-all p-4 rounded-bl-lg hover:bg-neutral-700/50" (click)="closeCreationPrompt()">Cancel</button>
-      <button class="text-slate-300 hover:text-white transition-all p-4 rounded-br-lg hover:bg-neutral-700/50" (click)="createScheduleBtn()">Create</button>
-    </div>
-  </div>
-</div>
-
-
-<div *ngIf="showDeletionPrompt" class="flex fixed h-full w-full place-content-center bg-opacity-0 top-0 left-0 z-10" (click)="closeCreationPrompt()">
-  <div class="m-auto h-fit w-[84%] md:w-[70%] lg:w-[50%] 2xl:w-[33.3333333%] rounded-lg z-50 backdrop-blur-sm bg-black/90 text-white border border-neutral-500" (click)="$event.stopPropagation()">
-    <div class="p-4">
-      <p class="font-extrabold">Do you really want to delete this schedule?</p>
-    </div>
-    <div class="mt-6 grid grid-cols-2 divide-x divide-neutral-500 border-t border-t-neutral-500">
-      <button class="text-slate-300 hover:text-white transition-all p-4 rounded-bl-lg hover:bg-neutral-700/50" (click)="showDeletionPrompt = false; scheduleIDtoDelete = ''; ">No</button>
-      <button class="text-slate-300 hover:text-white transition-all p-4 rounded-br-lg hover:bg-neutral-700/50" (click)="deleteSchedule()">Yes</button>
-    </div>
-  </div>
-</div>
+<app-schedule-creation-prompt *ngIf="showCreationPrompt" (answer)="getCreationResponse($event)"></app-schedule-creation-prompt>
+<app-confirmation-prompt *ngIf="showDeletionPrompt" (answer)="getDeletionResponse($event)" [message]="deletionMessage"></app-confirmation-prompt>

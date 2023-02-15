@@ -22,6 +22,8 @@ import { getAuth, provideAuth } from "@angular/fire/auth";
 import { GoogleLoginComponent } from './components/google-login/google-login.component';
 import { SchedulesComponent } from './components/schedules/schedules.component';
 import { FormsModule } from "@angular/forms";
+import { ConfirmationPromptComponent } from './components/confirmation-prompt/confirmation-prompt.component';
+import { ScheduleCreationPromptComponent } from './components/schedule-creation-prompt/schedule-creation-prompt.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCOwNyLOf0djhiSgQA-b6PJbgHisQfYG_s",
@@ -49,6 +51,8 @@ export const firebaseConfig = {
     AccountInfoComponent,
     GoogleLoginComponent,
     SchedulesComponent,
+    ConfirmationPromptComponent,
+    ScheduleCreationPromptComponent,
   ],
     imports: [
         BrowserModule,

@@ -9,7 +9,9 @@ import UserDisplayInfo from "../../interfaces/userDisplayInfo";
   styleUrls: ['./account-info.component.css']
 })
 export class AccountInfoComponent implements OnInit {
-  userInfo: UserDisplayInfo = {uid: null, email: null, displayName: null, photoURL: null};
+  public readonly confirmationMessage = "Do you really want to sign out?";
+  public userInfo: UserDisplayInfo = {uid: null, email: null, displayName: null, photoURL: null};
+  public showLogOutConfirmation = false;
 
   constructor(private auth: AuthService, private router: Router) { }
 
@@ -21,7 +23,9 @@ export class AccountInfoComponent implements OnInit {
     setTimeout(() => this.userInfo.photoURL = currentUser?.photoURL, 20);
   }
 
-  async logoutBtn() {
-    this.auth.logout().then(async () => await this.router.navigate(["login"]));
+  public async logoutBtn(confirmed: boolean) {
+    if (confirmed)
+      this.auth.logout().then(async () => await this.router.navigate(["login"]));
+    this.showLogOutConfirmation = false;
   }
 }

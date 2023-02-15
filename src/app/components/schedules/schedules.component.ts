@@ -10,69 +10,59 @@ import ExerciseInfo from "../../interfaces/exerciseInfo";
   styleUrls: ['./schedules.component.css']
 })
 export class SchedulesComponent implements OnInit, OnDestroy {
+  public readonly deletionMessage = "Do you really want to delete this schedule?"
+  public scheduleIDtoDelete = "";
+
   public userSchedules: Array<Schedule> = [];
 
   public showCreationPrompt = false;
   public showDeletionPrompt = false;
 
-  public scheduleIDtoDelete = "";
-
-  @Output() loadEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   public loadingSchedules = true;
-
-  public newScheduleName = "";
-  public daysOfWeek = new Array<string>;
+  @Output() loadEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private schedulesService: SchedulesService, private exercisesService: ExercisesService) {}
 
   async ngOnInit() {
     await this.updateSchedulesAndExercises();
-    this.loadingSchedules = false;
-    this.update();
+    this.propagateLoad(false);
   }
 
   ngOnDestroy() {
     this.showCreationPrompt = false;
     this.showDeletionPrompt = false;
-    this.closeCreationPrompt();
   }
 
-  public addDayBtn(day: string) {
-    if (!this.daysOfWeek.includes(day)) {
-      this.daysOfWeek.push(day);
+  public async getCreationResponse(newSchedule: Schedule) {
+    this.showCreationPrompt = false;
+    if (!newSchedule.name)
       return;
-    }
-
-    this.daysOfWeek.forEach((dayOfWeek, index) => {
-      if (dayOfWeek == day)
-        this.daysOfWeek.splice(index, 1);
-    });
-  }
-
-  public async createScheduleBtn() {
-    if (!this.newScheduleName || this.daysOfWeek.length <= 0)
-      return;
-    this.startLoading();
-    let schedule: Schedule = {name: this.newScheduleName, days: this.daysOfWeek, exercises: []};
-    this.closeCreationPrompt();
-    await this.schedulesService.createNewSchedule(schedule);
+    this.propagateLoad(true);
+    await this.schedulesService.createNewSchedule(newSchedule);
     await this.updateSchedulesAndExercises();
-
-    this.stopLoading();
+    this.propagateLoad(false);
   }
 
-  public async deleteScheduleBtn(id: string) {
+  public async deleteSchedulePrompt(id: string) {
     this.showDeletionPrompt = true;
     this.scheduleIDtoDelete = id;
   }
 
+  public async getDeletionResponse(confirmed: boolean) {
+    if (confirmed)
+      await this.deleteSchedule();
+    else {
+      this.showDeletionPrompt = false;
+      this.scheduleIDtoDelete = '';
+    }
+  }
 
   public async deleteSchedule() {
     this.showDeletionPrompt = false;
-    this.startLoading();
+    this.propagateLoad(true);
     await this.schedulesService.deleteSchedule(this.scheduleIDtoDelete);
     await this.updateSchedulesAndExercises();
-    this.stopLoading();
+    this.propagateLoad(false);
   }
 
   private async getExercisesInfo() {
@@ -86,32 +76,13 @@ export class SchedulesComponent implements OnInit, OnDestroy {
     }
   }
 
-  public async updateSchedulesAndExercises() {
+  private async updateSchedulesAndExercises() {
     this.userSchedules = await this.schedulesService.getUserSchedules();
     await this.getExercisesInfo();
   }
 
-  public openCreationPrompt() {
-    this.showCreationPrompt = true;
-  }
-
-  public closeCreationPrompt() {
-    this.showCreationPrompt = false;
-    this.newScheduleName = "";
-    this.daysOfWeek = new Array<string>;
-  }
-
-  private update() {
+  private propagateLoad(isLoading: boolean) {
+    this.loadingSchedules = isLoading;
     this.loadEmitter.emit(this.loadingSchedules);
-  }
-
-  private startLoading() {
-    this.loadingSchedules = true;
-    this.update();
-  }
-
-  private stopLoading() {
-    this.loadingSchedules = false;
-    this.update();
   }
 }
