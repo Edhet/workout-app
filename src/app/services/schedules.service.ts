@@ -43,7 +43,7 @@ export class SchedulesService {
     return await updateDoc(this.getUserInfoDoc(userUID), {schedulesID: newUserInfo.schedulesID});
   }
 
-  private async getUserInfo(): Promise<UserInfo> {
+  public async getUserInfo(): Promise<UserInfo> {
     const userUID = this.authService.getCurrentUser()?.uid;
     if (!userUID)
       return Promise.reject();

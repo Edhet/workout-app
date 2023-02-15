@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SchedulesService} from "../../services/schedules.service";
 
 @Component({
   selector: 'app-info-card',
   templateUrl: './info-card.component.html',
   styleUrls: ['./info-card.component.css']
 })
-export class InfoCardComponent {
+export class InfoCardComponent implements OnInit {
+  userHasSchedules: boolean = false;
+  isLoading = true;
 
+  constructor(private schedulesService: SchedulesService) {}
+
+  async ngOnInit() {
+    const schedules = await this.schedulesService.getUserInfo()
+    this.userHasSchedules = Boolean(schedules.schedulesID);
+    this.isLoading = false;
+  }
 }

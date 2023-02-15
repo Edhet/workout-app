@@ -1,12 +1,12 @@
 <app-navbar></app-navbar>
-<app-selection-prompt></app-selection-prompt>
+<app-selection-prompt *ngIf="emittedValue" (closePromptEmitter)="emittedValue = $event" [emittedValue]="emittedValue"></app-selection-prompt>
 
 <main class="mx-4 md:mx-24 lg:mx-48 2xl:max-w-[50%] 2xl:mx-[25%] my-2">
   <app-info-card></app-info-card>
-  <app-exercise-list></app-exercise-list>
-  <app-exercise-list></app-exercise-list>
+  <app-exercise-list (exerciseIDEmitter)="emittedValue = $event"></app-exercise-list>
+  <app-exercise-list (exerciseIDEmitter)="emittedValue = $event"></app-exercise-list>
 
-  <app-exercise-card></app-exercise-card>
-  <app-exercise-card></app-exercise-card>
+  <app-exercise-card (exerciseIDEmitter)="emittedValue = $event"></app-exercise-card>
+  <app-exercise-card (exerciseIDEmitter)="emittedValue = $event"></app-exercise-card>
 </main>
 <app-footer></app-footer>

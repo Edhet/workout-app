@@ -1,10 +1,15 @@
-<h1 class="text-4xl font-bold">{{categoryAndExercises.categoryName}}</h1>
-
-<div class="relative transition-all hover:drop-shadow-xl text-white my-5" *ngFor="let exercise of categoryAndExercises.exercises">
-  <img src="{{exercise.imageURL}}" alt="img" class="h-32 rounded-t-lg object-cover md:h-48 w-full">
-  <div class="bg-gradient-to-r from-rose-500 to-yellow-500 rounded-b-lg p-2">
-    <h2 class="font-extrabold"> {{exercise.name}} </h2>
-    <p>{{exercise.description}}</p>
-    <button class="bg-black p-2 rounded-lg mt-2 bottom-2 hover:bg-gray-800 transition-colors"> Add </button>
+<div class="p-12" *ngIf="isLoading">
+  <div class="m-auto bg-yellow-500 rounded-full animate-ping w-8 h-8"></div>
+</div>
+<div *ngIf="!isLoading">
+  <h1 class="text-4xl font-bold">{{categoryAndExercises.categoryName}}</h1>
+  <div class="relative transition-all hover:drop-shadow-xl text-white my-5" *ngFor="let exercise of categoryAndExercises.exercises">
+    <img src="{{exercise.imageURL}}" alt="img" class="h-32 rounded-t-lg object-cover md:h-48 w-full">
+    <div class="bg-gradient-to-r from-rose-500 to-yellow-500 rounded-b-lg p-2">
+      <h2 class="font-extrabold"> {{exercise.name}} </h2>
+      <p>{{exercise.description}}</p>
+      <button class="bg-black p-2 rounded-lg mt-2 bottom-2 hover:bg-gray-800 transition-colors" (click)="emitExerciseID(exercise.firestoreID)"> Add </button>
+    </div>
   </div>
 </div>
+

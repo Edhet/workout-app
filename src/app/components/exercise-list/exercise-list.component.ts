@@ -1,5 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import ExerciseInfo from "../../interfaces/exerciseInfo";
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ExercisesService} from "../../services/exercises.service";
 import CategoryExercisesList from "../../interfaces/categoryExercisesList";
 
@@ -11,16 +10,24 @@ import CategoryExercisesList from "../../interfaces/categoryExercisesList";
 export class ExerciseListComponent implements OnInit {
   @ViewChild('listContainer') div!:ElementRef;
 
+
   isHiddenClass: string = "";
   hasPaddingClass: string = "";
+  isLoading = true;
 
   public categoryAndExercises: CategoryExercisesList = {categoryName: "", exercises: []};
+  @Output() exerciseIDEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private exercisesService: ExercisesService) { }
 
   async ngOnInit() {
     this.categoryAndExercises = await this.exercisesService.populateComponent();
+    this.isLoading = false;
     setTimeout(() => this.onWindowResize(), 50);
+  }
+
+  public emitExerciseID(id: string) {
+    this.exerciseIDEmitter.emit(id);
   }
 
   onWindowResize() {

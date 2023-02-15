@@ -50,10 +50,9 @@ export class SchedulesComponent implements OnInit, OnDestroy {
   }
 
   public async createScheduleBtn() {
-    this.startLoading();
-
     if (!this.newScheduleName || this.daysOfWeek.length <= 0)
       return;
+    this.startLoading();
     let schedule: Schedule = {name: this.newScheduleName, days: this.daysOfWeek, exercises: []};
     this.closeCreationPrompt();
     await this.schedulesService.createNewSchedule(schedule);

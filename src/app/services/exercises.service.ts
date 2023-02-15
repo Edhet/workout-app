@@ -74,4 +74,8 @@ export class ExercisesService {
     ExercisesService.isPopulating = false;
     return {categoryName: nextCategory!, exercises: await this.getAllExercisesFromCategory(nextCategory!)};
   }
+
+  public async preparePopulateComponent() {
+    this.categoriesLeft = await this.getCategories();
+  }
 }

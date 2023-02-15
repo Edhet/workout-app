@@ -1,8 +1,14 @@
-<div class="my-5 bg-gradient-to-r from-rose-500 via-yellow-500 to-yellow-500 text-white rounded-lg p-2 transition-all hover:drop-shadow-xl">
-  <h2 class="font-extrabold text-lg">Bigger Card</h2>
-  <p>
-    Ab vitae enim at quo nemo facere saepe. Consequuntur alias est veritatis voluptatem quia nulla magnam.
-    Ab ipsum ipsam reiciendis recusandae tempora. Eius mollitia saepe sint libero assumenda quia alias velit.
-  </p>
-  <button class="bg-black rounded-lg mt-2 p-2 hover:bg-gray-800 transition-colors">See More</button>
+<div class="p-12" *ngIf="isLoading">
+  <div class="m-auto bg-yellow-500 rounded-full animate-ping w-8 h-8"></div>
 </div>
+<div class="my-5 bg-gradient-to-r from-rose-500 via-yellow-500 to-yellow-500 text-white rounded-lg p-2 transition-all hover:drop-shadow-xl" *ngIf="!isLoading">
+  <h2 class="font-extrabold text-lg">Begin training now!</h2>
+  <div *ngIf="userHasSchedules">
+    <p>Now that you already have a schedule, you just need to add the exercises to it and them you can begin your trainings</p>
+  </div>
+  <div *ngIf="!userHasSchedules">
+    <p>You don't have any schedule yet, create one and come back to this page so you can add exercises to your schedule and begin training.</p>
+    <button class="bg-black rounded-lg mt-2 p-2 hover:bg-gray-800 transition-colors" routerLink="/you">Create Schedules</button>
+  </div>
+</div>
+
