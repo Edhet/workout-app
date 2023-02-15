@@ -22,6 +22,6 @@ export class AccountInfoComponent implements OnInit {
   }
 
   async logoutBtn() {
-    await this.auth.logout().then(() => {this.router.navigate(["login"])});
+    this.auth.logout().then(async () => await this.router.navigate(["login"]));
   }
 }

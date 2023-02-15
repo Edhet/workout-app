@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Auth, signOut, signInWithPopup, GoogleAuthProvider, user, onAuthStateChanged, User} from "@angular/fire/auth";
+import {Auth, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User} from "@angular/fire/auth";
 import {BehaviorSubject} from "rxjs";
 
 @Injectable({
