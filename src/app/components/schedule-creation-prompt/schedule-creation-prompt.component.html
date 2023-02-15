@@ -2,22 +2,22 @@
   <div class="m-auto h-fit w-[84%] md:w-[70%] lg:w-[50%] 2xl:w-[33.3333333%] rounded-lg z-50 backdrop-blur-sm bg-black/90 text-white border border-neutral-500" (click)="$event.stopPropagation()">
     <div class="p-4">
       <p class="font-extrabold">New Schedule:</p>
-      <input class="mt-4 p-2 rounded-lg w-full bg-transparent placeholder:text-slate-300 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="text" placeholder="Schedule name" [(ngModel)]="schedule.name">
+      <input class="mt-4 p-2 rounded-lg w-full bg-transparent placeholder:text-slate-300 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="text" placeholder="Schedule name" [(ngModel)]="newSchedule.name">
       <div class="flex gap-2 mt-4 mx-auto w-fit flex-wrap justify-center">
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(schedule.days.includes('sun') ? 'outline outline-1' : '')}}" (click)="addDayBtn('sun')">SUN</button>
+        {{(newSchedule.days.includes('sun') ? 'outline outline-1' : '')}}" (click)="addDayBtn('sun')">SUN</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(schedule.days.includes('mon') ? 'outline outline-1' : '')}}" (click)="addDayBtn('mon')">MON</button>
+        {{(newSchedule.days.includes('mon') ? 'outline outline-1' : '')}}" (click)="addDayBtn('mon')">MON</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(schedule.days.includes('tue') ? 'outline outline-1' : '')}}" (click)="addDayBtn('tue')">TUE</button>
+        {{(newSchedule.days.includes('tue') ? 'outline outline-1' : '')}}" (click)="addDayBtn('tue')">TUE</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(schedule.days.includes('wed') ? 'outline outline-1' : '')}}" (click)="addDayBtn('wed')">WED</button>
+        {{(newSchedule.days.includes('wed') ? 'outline outline-1' : '')}}" (click)="addDayBtn('wed')">WED</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(schedule.days.includes('thu') ? 'outline outline-1' : '')}}" (click)="addDayBtn('thu')">THU</button>
+        {{(newSchedule.days.includes('thu') ? 'outline outline-1' : '')}}" (click)="addDayBtn('thu')">THU</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(schedule.days.includes('fri') ? 'outline outline-1' : '')}}" (click)="addDayBtn('fri')">FRI</button>
+        {{(newSchedule.days.includes('fri') ? 'outline outline-1' : '')}}" (click)="addDayBtn('fri')">FRI</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(schedule.days.includes('sat') ? 'outline outline-1' : '')}}" (click)="addDayBtn('sat')">SAT</button>
+        {{(newSchedule.days.includes('sat') ? 'outline outline-1' : '')}}" (click)="addDayBtn('sat')">SAT</button>
       </div>
     </div>
     <p class="text-center" *ngIf="errorMessage">{{errorMessage}}</p>

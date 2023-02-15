@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, Input} from '@angular/core';
 import Schedule from "../../interfaces/schedule";
 
 @Component({
@@ -7,34 +7,40 @@ import Schedule from "../../interfaces/schedule";
   styleUrls: ['./schedule-creation-prompt.component.css']
 })
 export class ScheduleCreationPromptComponent {
+  private readonly scheduleNameCharLimit = 24;
   public errorMessage = "";
 
-  public schedule: Schedule = {name: "", days: [], exercises: []};
+  @Input() userSchedules: Array<Schedule> = [];
 
+  public newSchedule: Schedule = {name: "", days: [], exercises: []};
   @Output() answer: EventEmitter<Schedule> = new EventEmitter<Schedule>();
 
   public addDayBtn(day: string) {
-    if (!this.schedule.days.includes(day)) {
-      this.schedule.days.push(day);
+    if (!this.newSchedule.days.includes(day)) {
+      this.newSchedule.days.push(day);
       return;
     }
-    this.schedule.days.forEach((dayOfWeek, index) => {
+    this.newSchedule.days.forEach((dayOfWeek, index) => {
       if (dayOfWeek == day)
-        this.schedule.days.splice(index, 1);
+        this.newSchedule.days.splice(index, 1);
     });
   }
 
   public closePrompt() {
     this.errorMessage = "";
-    this.schedule = {name: "", days: [], exercises: []};
-    this.answer.emit(this.schedule);
+    this.newSchedule = {name: "", days: [], exercises: []};
+    this.answer.emit(this.newSchedule);
   }
 
   public createSchedule() {
-    if (!this.schedule.name || this.schedule.days.length <= 0) {
-      this.errorMessage = (!this.schedule.name) ? "New schedule has no name" : "New schedule has no assigned days";
+    this.errorMessage = "";
+    this.userSchedules.forEach(schedule => this.errorMessage = (this.newSchedule.name = schedule.name) ? "There is already a schedule with this name" : "");
+    if (this.newSchedule.days.length <= 0 )
+      this.errorMessage = "New schedule has no assigned days";
+    if (!this.newSchedule.name || this.newSchedule.name.length > this.scheduleNameCharLimit)
+      this.errorMessage = (!this.newSchedule.name) ? "New schedule has no name" : "The schedule name is too big";
+    if (this.errorMessage)
       return;
-    }
-    this.answer.emit(this.schedule);
+    this.answer.emit(this.newSchedule);
   }
 }
