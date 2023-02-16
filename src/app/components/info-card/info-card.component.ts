@@ -14,7 +14,7 @@ export class InfoCardComponent implements OnInit {
 
   async ngOnInit() {
     const schedules = await this.schedulesService.getUserInfo()
-    this.userHasSchedules = Boolean(schedules.schedulesID);
+    this.userHasSchedules = Boolean(schedules.schedulesID.length > 0);
     this.isLoading = false;
   }
 }
