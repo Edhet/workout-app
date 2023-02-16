@@ -34,7 +34,7 @@ export class ScheduleCreationPromptComponent {
 
   public createSchedule() {
     this.errorMessage = "";
-    this.userSchedules.forEach(schedule => this.errorMessage = (this.newSchedule.name = schedule.name) ? "There is already a schedule with this name" : "");
+    this.userSchedules.forEach(schedule => this.errorMessage = (this.newSchedule.name == schedule.name) ? "There is already a schedule with this name" : "");
     if (this.newSchedule.days.length <= 0 )
       this.errorMessage = "New schedule has no assigned days";
     if (!this.newSchedule.name || this.newSchedule.name.length > this.scheduleNameCharLimit)

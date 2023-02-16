@@ -11,7 +11,7 @@
     </button>
   </div>
 
-  <div *ngIf="!(userSchedules.length > 0)">
+  <div *ngIf="!(userSchedules.length > 0)" class="fixed top-1/2 inset-x-0 px-2 -translate-y-6">
     <p class="text-center font-light my-6">You can add schedules clicking on the button with an plus sign</p>
   </div>
   <div *ngIf="userSchedules.length > 0">
