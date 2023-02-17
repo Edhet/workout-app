@@ -49,8 +49,10 @@ export class SchedulesService {
       return Promise.reject();
 
     let userInfoDoc = await getDoc(this.getUserInfoDoc(userUID));
-    if (!userInfoDoc.exists())
+    if (!userInfoDoc.exists()) {
       await this.createUserInfoDoc();
+      userInfoDoc = await getDoc(this.getUserInfoDoc(userUID));
+    }
     return userInfoDoc.data() as UserInfo;
   }
 
