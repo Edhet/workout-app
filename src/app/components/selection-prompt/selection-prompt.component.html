@@ -14,16 +14,19 @@
         <div class="m-auto bg-yellow-500 rounded-full animate-ping w-8 h-8"></div>
       </div>
       <div *ngIf="!isLoading">
-        <p class="text-center text-slate-300" *ngIf="!(userSchedules.length > 0)">You don't have any schedules yet</p>
-        <ul class="p-4 divide-y divide-neutral-500" *ngIf="userSchedules.length > 0">
-          <li *ngFor="let schedule of userSchedules">
-            <button class="text-slate-300 hover:text-white transition-all p-2 w-full text-left hover:bg-neutral-700/50 {{(selectedScheduleID.includes(schedule.firestoreID!)) ? 'bg-neutral-700/50' : ''}}" (click)="changeSelectedSchedule(schedule.firestoreID!)">{{schedule.name}}</button>
-          </li>
-        </ul>
-        <div class="flex justify-center flex-wrap gap-1">
-          <input class="mt-2 p-2 rounded-lg bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="number" placeholder="Series" [(ngModel)]="series" (keydown)="validNumber($event)">
-          <input class="mt-2 p-2 rounded-lg bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="number" placeholder="Repetitions" [(ngModel)]="repetitions" (keydown)="validNumber($event)">
+        <p class="text-center text-slate-300 mt-6" *ngIf="!(userSchedules.length > 0)">You don't have any schedules yet</p>
+        <div *ngIf="userSchedules.length > 0">
+          <ul class="p-4 divide-y divide-neutral-500">
+            <li *ngFor="let schedule of userSchedules">
+              <button class="text-slate-300 hover:text-white transition-all p-2 w-full text-left hover:bg-neutral-700/50 {{(selectedScheduleID.includes(schedule.firestoreID!)) ? 'bg-neutral-700/50' : ''}}" (click)="changeSelectedSchedule(schedule.firestoreID!)">{{schedule.name}}</button>
+            </li>
+          </ul>
+          <div class="flex justify-center flex-wrap gap-1">
+            <input class="mt-2 p-2 rounded-lg bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="number" placeholder="Series" [(ngModel)]="series" (keydown)="validNumber($event)">
+            <input class="mt-2 p-2 rounded-lg bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="number" placeholder="Repetitions" [(ngModel)]="repetitions" (keydown)="validNumber($event)">
+          </div>
         </div>
+
 
       </div>
 

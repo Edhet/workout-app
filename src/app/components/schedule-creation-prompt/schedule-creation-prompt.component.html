@@ -5,19 +5,19 @@
       <input class="mt-4 p-2 rounded-lg w-full bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="text" placeholder="Schedule name" [(ngModel)]="newSchedule.name">
       <div class="flex gap-2 mt-4 mx-auto w-fit flex-wrap justify-center">
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(newSchedule.days.includes('sun') ? 'outline outline-1' : '')}}" (click)="addDayBtn('sun')">SUN</button>
+        {{(newSchedule.days.includes('sun') ? 'outline outline-1 outline-yellow-500' : '')}}" (click)="addDayBtn('sun')">SUN</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(newSchedule.days.includes('mon') ? 'outline outline-1' : '')}}" (click)="addDayBtn('mon')">MON</button>
+        {{(newSchedule.days.includes('mon') ? 'outline outline-1 outline-yellow-500' : '')}}" (click)="addDayBtn('mon')">MON</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(newSchedule.days.includes('tue') ? 'outline outline-1' : '')}}" (click)="addDayBtn('tue')">TUE</button>
+        {{(newSchedule.days.includes('tue') ? 'outline outline-1 outline-yellow-500' : '')}}" (click)="addDayBtn('tue')">TUE</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(newSchedule.days.includes('wed') ? 'outline outline-1' : '')}}" (click)="addDayBtn('wed')">WED</button>
+        {{(newSchedule.days.includes('wed') ? 'outline outline-1 outline-yellow-500' : '')}}" (click)="addDayBtn('wed')">WED</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(newSchedule.days.includes('thu') ? 'outline outline-1' : '')}}" (click)="addDayBtn('thu')">THU</button>
+        {{(newSchedule.days.includes('thu') ? 'outline outline-1 outline-yellow-500' : '')}}" (click)="addDayBtn('thu')">THU</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(newSchedule.days.includes('fri') ? 'outline outline-1' : '')}}" (click)="addDayBtn('fri')">FRI</button>
+        {{(newSchedule.days.includes('fri') ? 'outline outline-1 outline-yellow-500' : '')}}" (click)="addDayBtn('fri')">FRI</button>
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
-        {{(newSchedule.days.includes('sat') ? 'outline outline-1' : '')}}" (click)="addDayBtn('sat')">SAT</button>
+        {{(newSchedule.days.includes('sat') ? 'outline outline-1 outline-yellow-500' : '')}}" (click)="addDayBtn('sat')">SAT</button>
       </div>
     </div>
     <p class="text-center" *ngIf="errorMessage">{{errorMessage}}</p>
