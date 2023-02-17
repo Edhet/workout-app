@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {SchedulesService} from "../../services/schedules.service";
 import Schedule from "../../interfaces/schedule";
+import ScheduleExercise from "../../interfaces/scheduleExercise";
 
 @Component({
   selector: 'app-selection-prompt',
@@ -8,6 +9,8 @@ import Schedule from "../../interfaces/schedule";
   styleUrls: ['./selection-prompt.component.css']
 })
 export class SelectionPromptComponent implements OnInit, OnDestroy {
+  private readonly invalidChars = ['-', '+', 'e', 'E'];
+
   public userSchedules: Array<Schedule> = [];
   public isLoading = true;
 
@@ -16,6 +19,10 @@ export class SelectionPromptComponent implements OnInit, OnDestroy {
 
   @Input() emittedValue = "";
   @Output() closePromptEmitter: EventEmitter<string> = new EventEmitter<string>();
+
+  public series?: number;
+  public repetitions?: number;
+
 
   constructor(private schedulesService: SchedulesService) { }
 
@@ -33,15 +40,22 @@ export class SelectionPromptComponent implements OnInit, OnDestroy {
       this.errorMessage = "No schedule selected"
       return;
     }
+    if (!this.series || !this.repetitions) {
+      this.errorMessage = (!this.series) ? "Insert a valid number of series" : "Insert a valid number of repetitions";
+      return;
+    }
     let newSchedule = await this.schedulesService.getSchedule(this.selectedScheduleID);
     for (const exercises of newSchedule.exercises)
-      if (exercises == this.emittedValue) {
+      if (exercises.exerciseID == this.emittedValue) {
         this.errorMessage = "This exercise is already in this schedule"
         return;
       }
-    newSchedule.exercises.push(this.emittedValue);
+    this.isLoading = true;
+    const newExercise: ScheduleExercise = {exerciseID: this.emittedValue, series: this.series, repetitions: this.repetitions};
+    newSchedule.exercises.push(newExercise);
     await this.schedulesService.updateSchedule(newSchedule, this.selectedScheduleID);
     this.errorMessage = "";
+    this.isLoading = false;
     this.closePrompt();
   }
 
@@ -51,5 +65,10 @@ export class SelectionPromptComponent implements OnInit, OnDestroy {
 
   public closePrompt() {
     this.closePromptEmitter.emit("");
+  }
+
+  public validNumber(event: KeyboardEvent) {
+    if (this.invalidChars.includes(event.key))
+      event.preventDefault();
   }
 }

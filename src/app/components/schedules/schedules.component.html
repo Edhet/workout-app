@@ -59,10 +59,24 @@
           <p class="text-center font-light">Go to the exercises pages to add exercises to this schedule</p>
         </div>
         <div *ngIf="schedule.exercises.length > 0">
-          <ul>
-            <li class="font-bold">Exercises:</li>
-            <li *ngFor="let exercise of schedule.exercisesInfo">{{exercise.name}}</li>
-          </ul>
+
+          <table class="table-fixed w-full">
+            <thead>
+              <tr class="font-bold">
+                <th class="text-start">Exercises</th>
+                <th class="text-end">Series</th>
+                <th class="text-end">Repetitions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let exercise of schedule.exercises">
+                <td class="text-start"> {{exercise.exercisesInfo!.name}} </td>
+                <td class="text-end"> {{exercise.series}} </td>
+                <td class="text-end"> {{exercise.repetitions}} </td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
     </div>

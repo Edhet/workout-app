@@ -70,9 +70,8 @@ export class SchedulesComponent implements OnInit, OnDestroy {
       if (!this.userSchedules[i].exercises)
         continue;
 
-      this.userSchedules[i].exercisesInfo = new Array<ExerciseInfo>();
-      for (const id of this.userSchedules[i].exercises)
-        this.userSchedules[i].exercisesInfo!.push(await this.exercisesService.getExercise(id));
+      for (const exercise of this.userSchedules[i].exercises)
+        exercise.exercisesInfo = await this.exercisesService.getExercise(exercise.exerciseID);
     }
   }
 
