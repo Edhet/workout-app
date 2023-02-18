@@ -3,6 +3,7 @@ import {SchedulesService} from "../../services/schedules.service";
 import {ExercisesService} from "../../services/exercises.service";
 import Schedule from "../../interfaces/schedule";
 import ExerciseInfo from "../../interfaces/exerciseInfo";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-schedules',
@@ -21,7 +22,7 @@ export class SchedulesComponent implements OnInit, OnDestroy {
   public loadingSchedules = true;
   @Output() loadEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private schedulesService: SchedulesService, private exercisesService: ExercisesService) {}
+  constructor(private schedulesService: SchedulesService, private exercisesService: ExercisesService, private router: Router) {}
 
   async ngOnInit() {
     await this.updateSchedulesAndExercises();
@@ -41,6 +42,10 @@ export class SchedulesComponent implements OnInit, OnDestroy {
     await this.schedulesService.createNewSchedule(newSchedule);
     await this.updateSchedulesAndExercises();
     this.propagateLoad(false);
+  }
+
+  public async editSchedule(id: string) {
+    await this.router.navigate(["edit-schedule/"+id]);
   }
 
   public async deleteSchedulePrompt(id: string) {

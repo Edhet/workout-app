@@ -24,6 +24,7 @@ import { SchedulesComponent } from './components/schedules/schedules.component';
 import { FormsModule } from "@angular/forms";
 import { ConfirmationPromptComponent } from './components/confirmation-prompt/confirmation-prompt.component';
 import { ScheduleCreationPromptComponent } from './components/schedule-creation-prompt/schedule-creation-prompt.component';
+import { EditScheduleComponent } from './pages/edit-schedule/edit-schedule.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCOwNyLOf0djhiSgQA-b6PJbgHisQfYG_s",
@@ -53,6 +54,7 @@ export const firebaseConfig = {
     SchedulesComponent,
     ConfirmationPromptComponent,
     ScheduleCreationPromptComponent,
+    EditScheduleComponent,
   ],
     imports: [
         BrowserModule,
