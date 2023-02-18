@@ -85,7 +85,7 @@ export class EditScheduleComponent implements OnInit {
     if (!answer)
       this.confirmationPromptOpen = false;
     this.confirmationPromptOpen = false;
-    this.scheduleToEdit?.exercises.forEach(exercises => exercises.exercisesInfo = undefined);
+    this.scheduleToEdit?.exercises.forEach(exercises => delete exercises.exercisesInfo);
     await this.router.navigate(["you"]);
     await this.schedulesService.updateSchedule(this.scheduleToEdit!, this.scheduleID!);
   }
