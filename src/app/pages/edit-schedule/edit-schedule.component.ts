@@ -82,8 +82,10 @@ export class EditScheduleComponent implements OnInit {
   }
 
   public async getChangeConfirmation(answer: boolean) {
-    if (!answer)
+    if (!answer) {
       this.confirmationPromptOpen = false;
+      return;
+    }
     this.confirmationPromptOpen = false;
     this.scheduleToEdit?.exercises.forEach(exercises => delete exercises.exercisesInfo);
     await this.router.navigate(["you"]);
