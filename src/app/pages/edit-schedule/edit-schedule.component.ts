@@ -11,6 +11,8 @@ import {ExercisesService} from "../../services/exercises.service";
 })
 export class EditScheduleComponent implements OnInit {
   public readonly confirmationMessage = "Are you sure? These changes cannot be undone";
+  private readonly invalidChars = ['-', '+', 'e', 'E', '.'];
+
   private originalName = "";
   public scheduleID: string | null = null;
   public scheduleToEdit?: Schedule;
@@ -90,5 +92,10 @@ export class EditScheduleComponent implements OnInit {
     this.scheduleToEdit?.exercises.forEach(exercises => delete exercises.exercisesInfo);
     await this.router.navigate(["you"]);
     await this.schedulesService.updateSchedule(this.scheduleToEdit!, this.scheduleID!);
+  }
+
+  public validNumber(event: KeyboardEvent) {
+    if (this.invalidChars.includes(event.key))
+      event.preventDefault();
   }
 }

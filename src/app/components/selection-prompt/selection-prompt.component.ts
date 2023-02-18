@@ -9,7 +9,7 @@ import ScheduleExercise from "../../interfaces/scheduleExercise";
   styleUrls: ['./selection-prompt.component.css']
 })
 export class SelectionPromptComponent implements OnInit, OnDestroy {
-  private readonly invalidChars = ['-', '+', 'e', 'E'];
+  private readonly invalidChars = ['-', '+', 'e', 'E', '.'];
 
   public userSchedules: Array<Schedule> = [];
   public isLoading = true;
