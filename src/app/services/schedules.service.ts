@@ -56,8 +56,9 @@ export class SchedulesService {
     return userInfoDoc.data() as UserInfo;
   }
 
-  public async getUserSchedules(): Promise<Array<Schedule>> {
-    const userInfo = await this.getUserInfo();
+  public async getUserSchedules(userInfo?: UserInfo): Promise<Array<Schedule>> {
+    if (!userInfo)
+      userInfo = await this.getUserInfo();
     let schedules: Array<Schedule> = [];
     for (let i = 0; i < userInfo.schedulesID.length; i++)
       schedules.push(await this.getSchedule(userInfo.schedulesID[i]));

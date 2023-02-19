@@ -11,7 +11,8 @@ export class ExercisesService {
 
   private static isPopulating = false;
 
-  public categoriesLeft: Array<string> = [];
+  private allExercisesCache?: Array<ExerciseInfo>;
+  private categoriesLeft: Array<string> = [];
 
   constructor(private firestore: Firestore) { }
 
@@ -43,16 +44,18 @@ export class ExercisesService {
     return exerciseList;
   }
 
-  public async getCategories(): Promise<Array<string>> {
-    const exerciseList = await this.getAllExercises();
+  public async getCategories(exerciseList?: Array<ExerciseInfo>): Promise<Array<string>> {
+    if (!exerciseList)
+      exerciseList = await this.getAllExercises();
     let categories: Array<string> = [];
     exerciseList.forEach(exercise => categories.push(exercise.category));
     categories = [...new Set(categories)];
     return categories;
   }
 
-  public async getAllExercisesFromCategory(category: string): Promise<Array<ExerciseInfo>> {
-    const exerciseList = await this.getAllExercises();
+  public async getAllExercisesFromCategory(category: string, exerciseList?: Array<ExerciseInfo>): Promise<Array<ExerciseInfo>> {
+    if (!exerciseList)
+      exerciseList = await this.getAllExercises();
     let exercisesInCategory: Array<ExerciseInfo> = [];
     exerciseList.forEach(exercise => {
       if (exercise.category == category)
@@ -66,16 +69,12 @@ export class ExercisesService {
       await new Promise(resolve => setTimeout(resolve, 1))
     ExercisesService.isPopulating = true;
 
-    if (this.categoriesLeft.length == 0)
-      this.categoriesLeft = await this.getCategories();
+    if (!this.allExercisesCache) this.allExercisesCache = await this.getAllExercises();
+    if (this.categoriesLeft.length == 0) this.categoriesLeft = await this.getCategories(this.allExercisesCache);
 
     const nextCategory = this.categoriesLeft.pop();
 
     ExercisesService.isPopulating = false;
-    return {categoryName: nextCategory!, exercises: await this.getAllExercisesFromCategory(nextCategory!)};
-  }
-
-  public async preparePopulateComponent() {
-    this.categoriesLeft = await this.getCategories();
+    return {categoryName: nextCategory!, exercises: await this.getAllExercisesFromCategory(nextCategory!, this.allExercisesCache)};
   }
 }

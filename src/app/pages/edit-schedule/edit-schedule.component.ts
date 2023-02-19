@@ -32,7 +32,7 @@ export class EditScheduleComponent implements OnInit {
     this.scheduleToEdit = await this.schedulesService.getSchedule(this.scheduleID!);
     this.originalName = this.scheduleToEdit.name;
     await this.getExercisesInfo();
-    this.otherSchedules = await this.schedulesService.getUserSchedules();
+    this.otherSchedules = await this.schedulesService.getUserSchedules(userInfo);
     this.isLoading = false;
   }
 
