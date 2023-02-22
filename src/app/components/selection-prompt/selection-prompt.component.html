@@ -22,8 +22,8 @@
             </li>
           </ul>
           <div class="flex justify-center flex-wrap gap-1">
-            <input class="mt-2 p-2 rounded-lg bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="number" placeholder="Series" [(ngModel)]="series" (keydown)="validNumber($event)">
-            <input class="mt-2 p-2 rounded-lg bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="number" placeholder="Repetitions" [(ngModel)]="repetitions" (keydown)="validNumber($event)">
+            <input class="mt-2 p-2 rounded-lg bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{(!series) ? 'text-red-500' : ''}}" type="number" placeholder="Series" [(ngModel)]="series" (keydown)="validNumber($event)">
+            <input class="mt-2 p-2 rounded-lg bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{(!repetitions) ? 'text-red-500' : ''}}" type="number" placeholder="Repetitions" [(ngModel)]="repetitions" (keydown)="validNumber($event)">
           </div>
         </div>
 
@@ -31,7 +31,7 @@
       </div>
 
     </div>
-    <p class="text-center" *ngIf="errorMessage">{{errorMessage}}</p>
+    <p class="text-center text-red-500" *ngIf="errorMessage">{{errorMessage}}</p>
     <div class="mt-6 grid grid-cols-2 divide-x divide-neutral-500 border-t border-t-neutral-500">
       <button class="text-slate-300 hover:text-white transition-all p-4 rounded-bl-lg hover:bg-neutral-700/50" (click)="closePrompt()">Cancel</button>
       <button class="text-slate-300 hover:text-white transition-all p-4 rounded-br-lg hover:bg-neutral-700/50" (click)="addExerciseToSchedule()">Confirm</button>

@@ -2,7 +2,7 @@
   <div class="m-auto h-fit w-[84%] md:w-[70%] lg:w-[50%] 2xl:w-[33.3333333%] rounded-lg z-50 backdrop-blur-sm bg-black/90 text-white border border-neutral-500" (click)="$event.stopPropagation()">
     <div class="p-4">
       <p class="font-extrabold">New Schedule:</p>
-      <input class="mt-4 p-2 rounded-lg w-full bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500" type="text" placeholder="Schedule name" [(ngModel)]="newSchedule.name">
+      <input class="mt-4 p-2 rounded-lg w-full bg-transparent placeholder:text-gray-500 transition-all hover:bg-gray-800 text-white transition-all hover:bg-neutral-700/50 border border-neutral-500 {{( this.newSchedule.name.length > scheduleNameCharLimit) ? 'text-red-500' : ''}}" type="text" placeholder="Schedule name" [(ngModel)]="newSchedule.name">
       <div class="flex gap-2 mt-4 mx-auto w-fit flex-wrap justify-center">
         <button class="px-1.5 py-2 rounded-full font-mono hover:bg-gray-800 text-slate-300 hover:text-white transition-all hover:bg-neutral-700/50 border border-neutral-500
         {{(newSchedule.days.includes('sun') ? 'outline outline-1 outline-yellow-500' : '')}}" (click)="addDayBtn('sun')">SUN</button>
@@ -20,7 +20,7 @@
         {{(newSchedule.days.includes('sat') ? 'outline outline-1 outline-yellow-500' : '')}}" (click)="addDayBtn('sat')">SAT</button>
       </div>
     </div>
-    <p class="text-center" *ngIf="errorMessage">{{errorMessage}}</p>
+    <p class="text-center text-red-500" *ngIf="errorMessage">{{errorMessage}}</p>
     <div class="mt-6 grid grid-cols-2 divide-x divide-neutral-500 border-t border-t-neutral-500">
       <button class="text-slate-300 hover:text-white transition-all p-4 rounded-bl-lg hover:bg-neutral-700/50" (click)="closePrompt()">Cancel</button>
       <button class="text-slate-300 hover:text-white transition-all p-4 rounded-br-lg hover:bg-neutral-700/50" (click)="createSchedule()">Create</button>

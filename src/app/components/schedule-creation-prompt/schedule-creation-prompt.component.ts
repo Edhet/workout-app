@@ -7,7 +7,7 @@ import Schedule from "../../interfaces/schedule";
   styleUrls: ['./schedule-creation-prompt.component.css']
 })
 export class ScheduleCreationPromptComponent {
-  private readonly scheduleNameCharLimit = 24;
+  public readonly scheduleNameCharLimit = 24;
   public errorMessage = "";
 
   @Input() userSchedules: Array<Schedule> = [];
