@@ -24,7 +24,7 @@
 </div>
 
 <main class="mx-4 md:mx-24 lg:mx-48 2xl:max-w-[50%] 2xl:mx-[25%] mt-2 mb-auto" *ngIf="!isLoading">
-  <input type="text" class="w-full mt-4 text-2xl border-b border-b-black placeholder:text-red-500 placeholder:font-light" placeholder="Name cannot be empty" [(ngModel)]="scheduleToEdit!.name" (ngModelChange)="checkNameUsage()">
+  <input type="text" class="w-full mt-4 text-2xl border-b border-b-black placeholder:text-red-500 placeholder:font-light transition-all  {{( this.scheduleToEdit!.name.length > scheduleNameCharLimit) ? 'text-red-500' : ''}}" placeholder="Name cannot be empty" [(ngModel)]="scheduleToEdit!.name" (ngModelChange)="checkNameUsage()">
   <p class="text-red-500 font-light" *ngIf="nameAlreadyInUse">This name is already in use by other Schedule</p>
   <div class="flex flex-wrap gap-2 mt-6 justify-center">
 

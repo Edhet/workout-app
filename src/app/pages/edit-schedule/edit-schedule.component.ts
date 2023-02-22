@@ -11,6 +11,7 @@ import {ExercisesService} from "../../services/exercises.service";
 })
 export class EditScheduleComponent implements OnInit {
   public readonly confirmationMessage = "Are you sure? These changes cannot be undone";
+  public readonly scheduleNameCharLimit = 24;
   private readonly invalidChars = ['-', '+', 'e', 'E', '.'];
 
   private originalName = "";
@@ -75,7 +76,7 @@ export class EditScheduleComponent implements OnInit {
   }
 
   public openConfirmationPrompt() {
-    if (!this.scheduleToEdit?.name || this.scheduleToEdit.days.length <= 0 || this.nameAlreadyInUse)
+    if (!this.scheduleToEdit?.name || this.scheduleToEdit.days.length <= 0 || this.nameAlreadyInUse || this.scheduleToEdit.name.length > this.scheduleNameCharLimit)
       return;
     for (let exercise of this.scheduleToEdit.exercises)
       if (!exercise.series || !exercise.repetitions)
