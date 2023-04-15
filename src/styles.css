@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.entering-animation {
+  animation-name: entering;
+  animation-duration: 1s;
+}
+
+@keyframes entering {
+  from {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+  to {
+    opacity: 100;
+    transform: translateY(0%);
+  }
+}
+
+.entering-blur {
+  animation-name: blurring;
+  animation-duration: 1s;
+}
+
+@keyframes blurring {
+  from {
+    backdrop-filter: blur(0px);
+  }
+
+  to {
+    backdrop-filter: blur(4px);
+  }
+}

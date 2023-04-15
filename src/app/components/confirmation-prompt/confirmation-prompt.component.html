@@ -1,5 +1,5 @@
-<div class="flex fixed h-full w-full place-content-center top-0 left-0 z-40 bg-opacity-25 bg-black backdrop-blur-sm" (click)="closePrompt()">
-  <div class="m-auto h-fit w-[84%] md:w-[70%] lg:w-[50%] 2xl:w-[33.3333333%] rounded-lg z-50 backdrop-blur-sm bg-black/90 text-white border border-neutral-500" (click)="$event.stopPropagation()">
+<div class="flex fixed h-full w-full place-content-center top-0 left-0 z-40 bg-opacity-25 bg-black backdrop-blur-sm entering-blur" (click)="closePrompt()">
+  <div class="m-auto h-fit w-[84%] md:w-[70%] lg:w-[50%] 2xl:w-[33.3333333%] rounded-lg z-50 backdrop-blur-sm bg-black/90 text-white border border-neutral-500 entering-animation" (click)="$event.stopPropagation()">
     <div class="p-4">
       <p class="font-extrabold">{{message}}</p>
     </div>
