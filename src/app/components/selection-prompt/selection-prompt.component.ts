@@ -20,8 +20,8 @@ export class SelectionPromptComponent implements OnInit, OnDestroy {
   @Input() emittedValue = "";
   @Output() closePromptEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  public series?: number;
-  public repetitions?: number;
+  public series: number = 1;
+  public repetitions: number = 1;
 
 
   constructor(private schedulesService: SchedulesService) { }
@@ -40,16 +40,19 @@ export class SelectionPromptComponent implements OnInit, OnDestroy {
       this.errorMessage = "No schedule selected"
       return;
     }
-    if (!this.series || !this.repetitions) {
+
+    if (this.repetitions < 1 || this.series < 1) {
       this.errorMessage = (!this.series) ? "Insert a valid number of series" : "Insert a valid number of repetitions";
       return;
     }
+
     let newSchedule = await this.schedulesService.getSchedule(this.selectedScheduleID);
     for (const exercises of newSchedule.exercises)
       if (exercises.exerciseID == this.emittedValue) {
         this.errorMessage = "This exercise is already in this schedule"
         return;
       }
+
     this.isLoading = true;
     const newExercise: ScheduleExercise = {exerciseID: this.emittedValue, series: this.series, repetitions: this.repetitions};
     newSchedule.exercises.push(newExercise);
@@ -58,6 +61,7 @@ export class SelectionPromptComponent implements OnInit, OnDestroy {
     this.isLoading = false;
     this.closePrompt();
   }
+
 
   public changeSelectedSchedule(id: string) {
     this.selectedScheduleID = id;
