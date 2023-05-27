@@ -17,6 +17,7 @@ export class AccountInfoComponent implements OnInit {
 
   ngOnInit() {
     let currentUser = this.auth.getCurrentUser();
+    this.userInfo.photoURL = "./assets/defaultpfp.png"
     this.userInfo.uid = currentUser!.uid;
     this.userInfo.email = currentUser!.email;
     this.userInfo.displayName = currentUser?.displayName;

@@ -4,6 +4,6 @@
     <p class="font-light text-sm"> {{userInfo.email}} </p>
     <button class="bg-black p-2 rounded-lg mt-2 bottom-2 hover:bg-gray-800 transition-colors text-white" (click)="showLogOutConfirmation = true">Log Out</button>
   </div>
-  <img [src]="userInfo.photoURL" class="rounded-full">
+  <img [src]="userInfo.photoURL" class="rounded-full max-w-[96px] max-h-[96px]">
 </div>
 <app-confirmation-prompt *ngIf="showLogOutConfirmation" (answer)="logoutBtn($event)" [message]="confirmationMessage"></app-confirmation-prompt>
