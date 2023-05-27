@@ -75,4 +75,6 @@ export class SelectionPromptComponent implements OnInit, OnDestroy {
     if (this.invalidChars.includes(event.key))
       event.preventDefault();
   }
+
+  protected readonly length = length;
 }

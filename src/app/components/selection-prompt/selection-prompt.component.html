@@ -31,10 +31,17 @@
       </div>
 
     </div>
-    <p class="text-center text-red-500" *ngIf="errorMessage">{{errorMessage}}</p>
-    <div class="mt-6 grid grid-cols-2 divide-x divide-neutral-500 border-t border-t-neutral-500">
-      <button class="text-slate-300 hover:text-white transition-all p-4 rounded-bl-lg hover:bg-neutral-700/50" (click)="closePrompt()">Cancel</button>
-      <button class="text-slate-300 hover:text-white transition-all p-4 rounded-br-lg hover:bg-neutral-700/50" (click)="addExerciseToSchedule()">Confirm</button>
-    </div>
+    <ng-template [ngIf]="!isLoading">
+      <p class="text-center text-red-500" *ngIf="errorMessage">{{errorMessage}}</p>
+      <div class="mt-6 grid grid-cols-2 divide-x divide-neutral-500 border-t border-t-neutral-500" *ngIf="userSchedules.length > 0; else emptyConfirmation">
+        <button class="text-slate-300 hover:text-white transition-all p-4 rounded-bl-lg hover:bg-neutral-700/50" (click)="closePrompt()">Cancel</button>
+        <button class="text-slate-300 hover:text-white transition-all p-4 rounded-br-lg hover:bg-neutral-700/50" (click)="addExerciseToSchedule()">Confirm</button>
+      </div>
+      <ng-template #emptyConfirmation>
+        <div class="mt-6 border-t border-t-neutral-500">
+          <button class="w-full text-slate-300 hover:text-white transition-all p-4 rounded-bl-lg hover:bg-neutral-700/50" (click)="closePrompt()">Ok</button>
+        </div>
+      </ng-template>
+    </ng-template>
   </div>
 </div>
