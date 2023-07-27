@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Auth, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User} from "@angular/fire/auth";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, filter, lastValueFrom, map, take} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user = new BehaviorSubject<User | null | boolean>(false);
+  private user = new BehaviorSubject<User | null>(null);
 
   constructor(private auth: Auth) {
     onAuthStateChanged(this.auth, user => this.user.next(user));
@@ -25,14 +25,11 @@ export class AuthService {
   }
 
   public async isLoggedIn(): Promise<boolean> {
-    let t = 0;
-    while (t <= 200) {
-      if (typeof this.user.value != "boolean")
-        return !!this.user.value;
-      await new Promise(resolve => setTimeout(resolve, 10));
-      t++;
-    }
-    return false;
+    const userObservable = this.getUserObservable().pipe(
+      filter(result => Boolean(result)),
+      take(1)
+    );
+    return Boolean(await lastValueFrom(userObservable));
   }
 
   public getCurrentUser() {
