@@ -91,14 +91,11 @@
             ],
             "scripts": []
           }
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "baseHref": "/workout-app/"
-          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

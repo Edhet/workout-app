@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Auth, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User} from "@angular/fire/auth";
-import {BehaviorSubject, filter, lastValueFrom, map, take} from "rxjs";
+import {BehaviorSubject, filter, firstValueFrom, lastValueFrom, map, take} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +24,9 @@ export class AuthService {
     return await signInWithPopup(this.auth, new GoogleAuthProvider());
   }
 
-  public async isLoggedIn(): Promise<boolean> {
-    const userObservable = this.getUserObservable().pipe(
-      filter(result => Boolean(result)),
-      take(1)
-    );
-    return Boolean(await lastValueFrom(userObservable));
+  public async isLoggedIn(): Promise<boolean> {    
+    const userObservable = this.getUserObservable();    
+    return Boolean(await firstValueFrom(userObservable));
   }
 
   public getCurrentUser() {
